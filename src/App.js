@@ -29,26 +29,27 @@ class App extends Component{
     componentDidMount() {
         this.getFridge();
         this.retrieveFridgeRecipesList();
+        this.retrieveRecipesList();
     }
 
     addToFridge = (ingredient) => {
-        console.log(`Calling add for ${ingredient.name}`);
+        // console.log(`Calling add for ${ingredient.name}`);
         this.setState({Ingredients: this.state.Ingredients.concat(ingredient)})
         api.get(`/fridges/${this.state.FridgeId}/add/${ingredient.id}`).then(res => {
             this.setState({Ingredients: res.data.ingredients});
-            console.log(res.data.ingredients);
+            // console.log(res.data.ingredients);
         });
     }
 
     rmFromFridge = (ingredient) => {
-        console.log(`Calling rm for ${ingredient.name}`);
+        // console.log(`Calling rm for ${ingredient.name}`);
         let index = this.state.Ingredients.indexOf(ingredient);
         if (index > -1) {
             this.setState({Ingredients: this.state.Ingredients.splice(ingredient, 1)})
         }
         api.get(`/fridges/${this.state.FridgeId}/rm/${ingredient.id}`).then(res => {
             this.setState({Ingredients: res.data.ingredients});
-            console.log(res.data.ingredients);
+            // console.log(res.data.ingredients);
         });
     }
 
@@ -57,7 +58,7 @@ class App extends Component{
             // let ingredients_ids = res.data.ingredients.map(x => x['id'])
             // this.setState({IngredientsIds: ingredients_ids});
             this.setState({Ingredients: res.data.ingredients});
-            console.log(res.data.ingredients);
+            // console.log(res.data.ingredients);
             // console.log(this.state.Ingredients);
             // console.log('get fridge');
         });
@@ -65,16 +66,16 @@ class App extends Component{
 
     sendFridge() {
         api.put(`/fridges/${this.state.FridgeId}`).then(res => {
-            console.log('send fridge');
-            console.log(res.data);
+            // console.log('send fridge');
+            // console.log(res.data);
             this.retrieveFridgeRecipesList();
         });
     }
 
     retrieveFridgeRecipesList() {
-        api.get('/recipes').then(res => {
-            console.log('recipes');
-            console.log(res.data);
+        api.get(`/fridges/${this.state.FridgeId}/recipes`).then(res => {
+            // console.log('recipes');
+            // console.log(res.data);
             this.setState({RecipesPossible: res.data});
         });
     }
@@ -91,7 +92,7 @@ class App extends Component{
                 <h1>Kitchen Fridge Combo 2020</h1>
                 <IngredientList key={this.state.Ingredients} ingredients={this.state.Ingredients} addToFridge={this.addToFridge} rmFromFridge={this.rmFromFridge}/>
                 <RecipeList name={"Possible Recipes"} list={this.state.RecipesPossible}/>
-                <RecipeList name="All Recipes" list={this.state.RecipesAll}/>
+                <RecipeList name="Some random recipes" list={this.state.RecipesAll}/>
             </div>
         );
     }
