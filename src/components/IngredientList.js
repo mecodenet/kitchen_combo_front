@@ -1,29 +1,20 @@
 import React, { Component } from 'react';
 import IngredientItem from '../components/IngredientItem.js';
-import axios from 'axios'
-
-const api = axios.create({
-    baseURL: `http://localhost:3001/`
-})
 
 class IngredientList extends Component {
     state = {
-        list: []
+        ingredients: []
     }
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.retrieveIngredientsList = this.retrieveIngredientsList.bind(this);
+        this.state.ingredients = props.ingredients;
     }
 
     componentDidMount() {
-        this.retrieveIngredientsList();
-      }
-
-    retrieveIngredientsList() {
-        api.get('/fridges/1').then(res => {
-            this.setState({list: res.data.ingredients});
-        });
+        // console.log('in the fridge');
+        this.setState({ingredients: this.props.ingredients});
+        // console.log(this.props);
     }
 
     render() {
@@ -31,8 +22,8 @@ class IngredientList extends Component {
             <div>
                 <h2>My fridge (Ingredients list)</h2>
                 {
-                    this.state.list.map((item, index) => {
-                        return <IngredientItem key={index} name={item.name} quantity={1} />
+                    this.state.ingredients.map((item, index) => {
+                        return <IngredientItem key={index} name={item.name} id={item.id} quantity={1} addToFridge={this.props.addToFridge} rmFromFridge={this.props.rmFromFridge} />
                     })
                 }
             </div>
