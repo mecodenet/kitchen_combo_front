@@ -12,9 +12,7 @@ class IngredientList extends Component {
     }
 
     componentDidMount() {
-        // console.log('in the fridge');
         this.setState({ingredients: this.props.ingredients});
-        // console.log(this.props);
     }
 
     render() {

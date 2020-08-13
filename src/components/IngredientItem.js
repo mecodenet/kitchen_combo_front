@@ -18,7 +18,6 @@ class IngredientItem extends Component {
     handleAddQuantity = e => {
         e.preventDefault();
         if(this.state.quantity === 0) {
-            // console.log(`add ${this.state.id} ${this.state.quantity}`)
             this.props.addToFridge({id: this.state.id, name: this.state.name})
         }
         this.setState({
@@ -30,7 +29,6 @@ class IngredientItem extends Component {
         e.preventDefault();
         if(this.state.quantity >= 1) {
             if (this.state.quantity === 1) {
-                // console.log(`rm ${this.state.id} ${this.state.quantity}`)
                 this.props.rmFromFridge({id: this.state.id, name: this.state.name})
             }
             this.setState({

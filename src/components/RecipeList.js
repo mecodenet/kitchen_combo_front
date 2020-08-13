@@ -29,7 +29,7 @@ class RecipeList extends Component {
                 <h2>{this.state.name}</h2>
                 {
                     this.state.list.map((item, index) => {
-                        return <RecipeItem key={index} name={item.name}/>
+                        return <RecipeItem key={index} id={item.id} name={item.name} addRecipe={this.props.addRecipe}/>
                     })
                 }
             </div>
